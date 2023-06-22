@@ -64,11 +64,6 @@ class ticket_view(discord.ui.View):
 
 
 
-
-
-
-
-
 async def add_setup(interaction: discord.Interaction, channel: discord.TextChannel, category: discord.CategoryChannel):
     # All data is now written to the database.
     your_cursor.execute("INSERT INTO setup(guild, channel, category) VALUES(?, ?, ?)", (interaction.guild.id, channel.id, category.id))
@@ -80,13 +75,6 @@ async def add_setup(interaction: discord.Interaction, channel: discord.TextChann
 
 
 
-
-
-
-
-
-
-
 async def setup_exists(interaction: discord.Interaction):
     exists = your_cursor.execute("SELECT * FROM setup WHERE guild = ?", (interaction.guild.id,)).fetchone()
     # If setup exists
@@ -94,13 +82,6 @@ async def setup_exists(interaction: discord.Interaction):
         await if_ticket_exists(interaction=interaction)
     else:
         await interaction.response.send_message(content="This setup has been removed by the admin.", ephemeral=True)
-
-
-
-
-
-
-
 
 
 
@@ -123,13 +104,6 @@ async def if_ticket_exists(interaction: discord.Interaction):
 
 
 
-
-
-
-
-
-
-
 async def open_a_ticket(interaction: discord.Interaction):
     ticket_category = your_cursor.execute("SELECT category FROM setup WHERE guild = ?", (interaction.guild.id,)).fetchone()
     category = interaction.guild.get_channel(ticket_category[0])
@@ -148,13 +122,6 @@ async def open_a_ticket(interaction: discord.Interaction):
 
     await interaction.response.send_message(content=f"You have successfully open a new ticket {ticket_channel.mention}.", ephemeral=True)
     await ticket_channel.send(content=f"Hello {interaction.user.mention}. \nSource Code: https://github.com/Milyaket")
-
-
-
-
-
-
-
 
 
 
