@@ -60,7 +60,6 @@ def setup(bot):
 
 async def get_country():
     # Get random country
-    # Get random country
     async with aiohttp.ClientSession() as client_session:
         async with client_session.get(url=get_flags) as request:
             country = random.choice(await request.json())
